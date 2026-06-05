@@ -1,0 +1,14 @@
+.vscode/**
+src/**
+scripts/**
+samples/**
+out/test/**
+.gitignore
+.yarnrc
+package-lock.json
+vsc-extension-quickstart.md
+**/tsconfig.json
+**/eslint.config.mjs
+**/*.map
+**/*.ts
+node_modules/hyparquet/types/**
