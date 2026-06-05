@@ -6,7 +6,7 @@ Preview local `.parquet` files inside VS Code.
 
 - Opens `.parquet` files with a read-only table preview by default.
 - Shows file size, total rows, column count, row group count, and schema chips.
-- Reads only the first 500 rows for a fast, compact preview.
+- Reads a configurable number of preview rows for a fast, compact preview.
 - Uses a dependency-free Parquet parser package and no webview framework.
 
 ## Usage
@@ -14,6 +14,10 @@ Preview local `.parquet` files inside VS Code.
 Open a `.parquet` file from the Explorer. The extension manages the default open behavior and shows the read-only preview directly.
 
 ![preview](./image/preview.png)
+
+## Settings
+
+- `simpleParquetVisualizer.maxPreviewRows`: maximum number of rows to read and display. Defaults to `500`.
 
 ## Development
 

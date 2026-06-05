@@ -1,7 +1,9 @@
 import * as vscode from 'vscode';
 
 const VIEW_TYPE = 'parquet-visualizer.preview';
-const MAX_PREVIEW_ROWS = 500;
+const DEFAULT_PREVIEW_ROWS = 500;
+const MIN_PREVIEW_ROWS = 1;
+const MAX_PREVIEW_ROWS = 10000;
 const MAX_CELL_LENGTH = 180;
 
 class ParquetDocument implements vscode.CustomDocument {
@@ -92,7 +94,7 @@ async function readPreview(uri: vscode.Uri): Promise<PreviewData> {
 	const file = await asyncBufferFromFile(uri.fsPath);
 	const metadata = await parquetMetadataAsync(file);
 	const schema = parquetSchema(metadata);
-	const rowEnd = previewRowCount(metadata);
+	const rowEnd = previewRowCount(metadata, getMaxPreviewRows(uri));
 	const rows = rowEnd === 0 ? [] : await parquetReadObjects({
 		file,
 		metadata,
@@ -110,8 +112,20 @@ async function readPreview(uri: vscode.Uri): Promise<PreviewData> {
 	};
 }
 
-function previewRowCount(metadata: ParquetMetadataSummary): number {
-	const limit = BigInt(MAX_PREVIEW_ROWS);
+function getMaxPreviewRows(uri: vscode.Uri): number {
+	const value = vscode.workspace
+		.getConfiguration('simpleParquetVisualizer', uri)
+		.get<number>('maxPreviewRows', DEFAULT_PREVIEW_ROWS);
+
+	if (!Number.isInteger(value)) {
+		return DEFAULT_PREVIEW_ROWS;
+	}
+
+	return Math.min(MAX_PREVIEW_ROWS, Math.max(MIN_PREVIEW_ROWS, value));
+}
+
+function previewRowCount(metadata: ParquetMetadataSummary, maxPreviewRows: number): number {
+	const limit = BigInt(maxPreviewRows);
 	return Number(metadata.num_rows > limit ? limit : metadata.num_rows);
 }
 
@@ -161,8 +175,7 @@ function columnType(column: SchemaNode): string {
 function renderPreviewHtml(webview: vscode.Webview, preview: PreviewData): string {
 	const styles = baseStyles(webview);
 	const visibleRows = preview.rows.length;
-	const totalRows = preview.totalRows.toString();
-	const subtitle = visibleRows === Number(preview.totalRows)
+	const subtitle = BigInt(visibleRows) === preview.totalRows
 		? `${visibleRows.toLocaleString()} rows`
 		: `Showing first ${visibleRows.toLocaleString()} of ${formatBigInt(preview.totalRows)} rows`;
 
