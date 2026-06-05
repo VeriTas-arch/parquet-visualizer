@@ -2,7 +2,7 @@
     "name": "simple-parquet-visualizer",
     "displayName": "Simple Parquet Visualizer",
     "description": "Preview local Parquet files as compact, readable tables.",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "icon": "image/icon.png",
     "publisher": "ovolab-veritas",
     "repository": {
