@@ -133,39 +133,27 @@ async function readPreview(uri: vscode.Uri): Promise<PreviewData> {
 }
 
 function getMaxPreviewRows(uri: vscode.Uri): number {
-    const value = vscode.workspace
-        .getConfiguration('simpleParquetVisualizer', uri)
-        .get<number>('maxPreviewRows', DEFAULT_PREVIEW_ROWS);
-
-    if (!Number.isInteger(value)) {
-        return DEFAULT_PREVIEW_ROWS;
-    }
-
-    return Math.min(MAX_PREVIEW_ROWS, Math.max(MIN_PREVIEW_ROWS, value));
+    return getIntegerSetting(uri, 'maxPreviewRows', DEFAULT_PREVIEW_ROWS, MIN_PREVIEW_ROWS, MAX_PREVIEW_ROWS);
 }
 
 function getMaxColumnWidth(uri: vscode.Uri): number {
-    const value = vscode.workspace
-        .getConfiguration('simpleParquetVisualizer', uri)
-        .get<number>('maxColumnWidth', DEFAULT_MAX_COLUMN_WIDTH);
-
-    if (!Number.isInteger(value)) {
-        return DEFAULT_MAX_COLUMN_WIDTH;
-    }
-
-    return Math.min(MAX_CONFIGURABLE_COLUMN_WIDTH, Math.max(MIN_COLUMN_WIDTH, value));
+    return getIntegerSetting(uri, 'maxColumnWidth', DEFAULT_MAX_COLUMN_WIDTH, MIN_COLUMN_WIDTH, MAX_CONFIGURABLE_COLUMN_WIDTH);
 }
 
 function getMaxCellLength(uri: vscode.Uri): number {
+    return getIntegerSetting(uri, 'maxCellLength', DEFAULT_MAX_CELL_LENGTH, MIN_CELL_LENGTH, MAX_CONFIGURABLE_CELL_LENGTH);
+}
+
+function getIntegerSetting(uri: vscode.Uri, key: string, fallback: number, min: number, max: number): number {
     const value = vscode.workspace
         .getConfiguration('simpleParquetVisualizer', uri)
-        .get<number>('maxCellLength', DEFAULT_MAX_CELL_LENGTH);
+        .get<number>(key, fallback);
 
     if (!Number.isInteger(value)) {
-        return DEFAULT_MAX_CELL_LENGTH;
+        return fallback;
     }
 
-    return Math.min(MAX_CONFIGURABLE_CELL_LENGTH, Math.max(MIN_CELL_LENGTH, value));
+    return Math.min(max, Math.max(min, value));
 }
 
 function previewRowCount(metadata: ParquetMetadataSummary, maxPreviewRows: number): number {
