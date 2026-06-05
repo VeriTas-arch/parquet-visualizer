@@ -13,6 +13,8 @@ Preview local `.parquet` files inside VS Code.
 
 Open a `.parquet` file from the Explorer. The extension manages the default open behavior and shows the read-only preview directly.
 
+![preview](./image/preview.png)
+
 ## Development
 
 Run `npm run compile` when you want to rebuild the extension output. F5 does not run compilation automatically.
