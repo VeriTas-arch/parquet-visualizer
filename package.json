@@ -1,52 +1,59 @@
 {
-  "name": "parquet-visualizer",
-  "displayName": "Parquet Visualizer",
-  "description": "Preview local Parquet files as compact, readable tables.",
-  "version": "0.0.1",
-  "engines": {
-    "vscode": "^1.120.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "main": "./out/extension.js",
-  "contributes": {
-    "customEditors": [
-      {
-        "viewType": "parquet-visualizer.preview",
-        "displayName": "Parquet Preview",
-        "selector": [
-          {
-            "filenamePattern": "*.parquet"
-          }
-        ],
-        "priority": "default"
-      }
+    "name": "parquet-visualizer",
+    "displayName": "Parquet Visualizer",
+    "description": "Preview local Parquet files as compact, readable tables.",
+    "version": "0.0.1",
+    "icon": "image/icon.png",
+    "publisher": "ovolab-veritas",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/VeriTas-arch/parquet-visualizer"
+    },
+    "license": "BSD 3-Clause",
+    "engines": {
+        "vscode": "^1.120.0"
+    },
+    "categories": [
+        "Other"
     ],
-    "configurationDefaults": {
-      "workbench.editorAssociations": {
-        "*.parquet": "parquet-visualizer.preview"
-      }
+    "main": "./out/extension.js",
+    "contributes": {
+        "customEditors": [
+            {
+                "viewType": "parquet-visualizer.preview",
+                "displayName": "Parquet Preview",
+                "selector": [
+                    {
+                        "filenamePattern": "*.parquet"
+                    }
+                ],
+                "priority": "default"
+            }
+        ],
+        "configurationDefaults": {
+            "workbench.editorAssociations": {
+                "*.parquet": "parquet-visualizer.preview"
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "samples": "node scripts/generate-samples.mjs",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile && npm run lint",
+        "lint": "eslint src"
+    },
+    "devDependencies": {
+        "@types/mocha": "^10.0.10",
+        "@types/node": "22.x",
+        "@types/vscode": "^1.120.0",
+        "eslint": "^9.39.3",
+        "hyparquet-writer": "^0.15.6",
+        "typescript": "^5.9.3",
+        "typescript-eslint": "^8.56.1"
+    },
+    "dependencies": {
+        "hyparquet": "^1.26.0"
     }
-  },
-  "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "samples": "node scripts/generate-samples.mjs",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src"
-  },
-  "devDependencies": {
-    "@types/mocha": "^10.0.10",
-    "@types/node": "22.x",
-    "@types/vscode": "^1.120.0",
-    "eslint": "^9.39.3",
-    "hyparquet-writer": "^0.15.6",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.56.1"
-  },
-  "dependencies": {
-    "hyparquet": "^1.26.0"
-  }
 }
