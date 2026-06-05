@@ -6,6 +6,7 @@ Preview local `.parquet` files inside VS Code.
 
 - Opens `.parquet` files with a read-only table preview by default.
 - Shows file size, total rows, column count, row group count, and schema chips.
+- Supports drag resizing table columns.
 - Reads a configurable number of preview rows for a fast, compact preview.
 - Uses a dependency-free Parquet parser package and no webview framework.
 
@@ -18,6 +19,8 @@ Open a `.parquet` file from the Explorer. The extension manages the default open
 ## Settings
 
 - `simpleParquetVisualizer.maxPreviewRows`: maximum number of rows to read and display. Defaults to `500`.
+- `simpleParquetVisualizer.maxColumnWidth`: maximum table column width in pixels for auto-fit and manual resizing. Defaults to `640`.
+- `simpleParquetVisualizer.maxCellLength`: maximum text length to display in a preview cell before truncation. Defaults to `180`.
 
 ## Development
 

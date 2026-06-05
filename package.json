@@ -2,7 +2,7 @@
     "name": "simple-parquet-visualizer",
     "displayName": "Simple Parquet Visualizer",
     "description": "Preview local Parquet files as compact, readable tables.",
-    "version": "0.0.3",
+    "version": "0.1.0",
     "icon": "image/icon.png",
     "publisher": "ovolab-veritas",
     "repository": {
@@ -39,6 +39,20 @@
                     "minimum": 1,
                     "maximum": 10000,
                     "description": "Maximum number of rows to read and display in the Parquet preview."
+                },
+                "simpleParquetVisualizer.maxColumnWidth": {
+                    "type": "integer",
+                    "default": 640,
+                    "minimum": 80,
+                    "maximum": 2000,
+                    "description": "Maximum table column width in pixels for auto-fit and manual resizing."
+                },
+                "simpleParquetVisualizer.maxCellLength": {
+                    "type": "integer",
+                    "default": 180,
+                    "minimum": 40,
+                    "maximum": 2000,
+                    "description": "Maximum text length to display in a preview cell before truncation."
                 }
             }
         },

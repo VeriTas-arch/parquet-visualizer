@@ -1,0 +1,221 @@
+:root {
+    color-scheme: light dark;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    background: var(--vscode-editor-background);
+    color: var(--vscode-editor-foreground);
+    font-family: var(--vscode-font-family);
+    font-size: var(--vscode-font-size);
+}
+
+.summary {
+    flex: 0 0 auto;
+    display: flex;
+    gap: 24px;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 18px 22px 14px;
+    border-bottom: 1px solid var(--vscode-panel-border);
+    background: var(--vscode-editor-background);
+}
+
+h1 {
+    margin: 0 0 6px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+p {
+    margin: 0;
+    color: var(--vscode-descriptionForeground);
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(88px, auto));
+    gap: 10px;
+}
+
+.stat {
+    padding: 7px 10px;
+    border: 1px solid var(--vscode-panel-border);
+    border-radius: 6px;
+    background: var(--vscode-sideBar-background);
+}
+
+.stat span,
+.schema-col span,
+th small {
+    display: block;
+    color: var(--vscode-descriptionForeground);
+    font-size: 11px;
+    line-height: 1.35;
+}
+
+.stat strong {
+    display: block;
+    margin-top: 2px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.schema {
+    flex: 0 0 auto;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 12px 22px;
+    border-bottom: 1px solid var(--vscode-panel-border);
+    background: var(--vscode-editor-background);
+}
+
+.schema-col {
+    min-width: 132px;
+    max-width: 220px;
+    padding: 7px 9px;
+    border: 1px solid var(--vscode-panel-border);
+    border-radius: 6px;
+    background: var(--vscode-sideBar-background);
+}
+
+.schema-col strong {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+.table-wrap {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+}
+
+.row-index-col {
+    width: 56px;
+}
+
+th,
+td {
+    padding: 7px 10px;
+    border-right: 1px solid var(--vscode-panel-border);
+    border-bottom: 1px solid var(--vscode-panel-border);
+    text-align: left;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: var(--vscode-editor-font-family);
+    font-size: var(--vscode-editor-font-size);
+}
+
+thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: var(--vscode-sideBar-background);
+    font-weight: 600;
+    user-select: none;
+}
+
+.column-title {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+thead th[data-column-index] {
+    padding-right: 18px;
+}
+
+.resize-handle {
+    position: absolute;
+    top: 0;
+    right: -4px;
+    z-index: 6;
+    width: 8px;
+    height: 100%;
+    cursor: col-resize;
+    touch-action: none;
+}
+
+.resize-handle::after {
+    position: absolute;
+    top: 6px;
+    right: 3px;
+    bottom: 6px;
+    width: 1px;
+    background: transparent;
+    content: "";
+}
+
+.resize-handle:hover::after,
+.resize-handle.is-active::after {
+    background: var(--vscode-focusBorder);
+}
+
+body.is-resizing {
+    cursor: col-resize;
+    user-select: none;
+}
+
+.row-index {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    width: 56px;
+    min-width: 56px;
+    max-width: 56px;
+    background: var(--vscode-sideBar-background);
+    color: var(--vscode-descriptionForeground);
+    text-align: right;
+}
+
+thead .row-index {
+    z-index: 4;
+}
+
+.null {
+    color: var(--vscode-descriptionForeground);
+    font-style: italic;
+}
+
+.empty,
+.message {
+    padding: 28px 22px;
+}
+
+.message.error p {
+    color: var(--vscode-errorForeground);
+}
+
+@media (max-width: 720px) {
+    .summary {
+        display: block;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 14px;
+    }
+}
